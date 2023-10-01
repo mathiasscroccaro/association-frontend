@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 export default function HocCepField(props: HOCBaseProps) {
     useEffect(() => {
         async function fetchData() {
-            console.log("Calling fetchCEPInformationAndFill")
             await fetchCEPÌnformationAndFill(props.value, props.dispatch)
         }
         fetchData();

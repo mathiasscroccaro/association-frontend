@@ -45,14 +45,10 @@ function mapUfToState(uf: string): string {
 
 export async function fetchCEPÌnformationAndFill(cep: string, dispatch: Dispatch<Action>) {
     if (cep.length === 8) {
-        console.log("inside fetchCEPInformation and fill")
-
         const cepApiBaseURL = "https://viacep.com.br/ws";
         const cepApiEndpoint = cepApiBaseURL + `/${cep}/json/`
         const response = await fetch(cepApiEndpoint);
         const body: AddressInfo = await response.json();
-
-        console.log("After fetching...")
 
         dispatch({
             type: ActionType.updateCity,
