@@ -2,7 +2,7 @@ import { expect, test, describe } from "bun:test";
 import { maskPhoneNumber, unmaskPhoneNumber } from "../hooks";
 
 
-describe("Given a maked phone number", () => {
+describe("Given a masked phone number", () => {
   test("Should remove unwanted chars", () => {
     expect(unmaskPhoneNumber("(11) 98877-6655")).toBe("11988776655");
     expect(unmaskPhoneNumber("(11) 98877-66x3")).toBe("1198877663");

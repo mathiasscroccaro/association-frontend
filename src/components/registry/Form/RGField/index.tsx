@@ -1,15 +1,15 @@
 import TextField from '@mui/material/TextField'
-import { maskPhoneNumber, unmaskPhoneNumber } from './hooks';
+import { maskRGNumber, unmaskRGNumber } from './hooks';
 import { ActionType } from '../../../context/FormReducer';
 import { HOCBaseProps } from '../types';
 
-export default function HocPhoneField(props: HOCBaseProps) {
-    const maskedValue = maskPhoneNumber(props.value);
+export default function HocRgField(props: HOCBaseProps) {
+    const maskedValue = maskRGNumber(props.value);
 
     function textChanged(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         props.dispatch({
-            type: ActionType.updatePhoneNumber,
-            payload: unmaskPhoneNumber(event.target.value),
+            type: ActionType.updateRg,
+            payload: unmaskRGNumber(event.target.value),
         });
     }
     
@@ -17,7 +17,7 @@ export default function HocPhoneField(props: HOCBaseProps) {
         <TextField
             fullWidth
             id=""
-            label="Telefone celular"
+            label="RG"
             onChange={textChanged}
             value={maskedValue}
         />
