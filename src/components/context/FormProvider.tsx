@@ -1,7 +1,7 @@
 
 import React, { useReducer, ReactNode } from 'react';
 import CounterContext from './FormContext';
-import { initialState, counterReducer, CounterState, Action } from './FormReducer';
+import { initialState, counterReducer, FormState, Action } from './FormReducer';
 
 interface CounterProviderProps {
   children: ReactNode;
