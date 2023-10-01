@@ -1,20 +1,20 @@
 
 import React, { useReducer, ReactNode } from 'react';
-import CounterContext from './FormContext';
+import FormContext from './FormContext';
 import { initialState, counterReducer, FormState, Action } from './FormReducer';
 
-interface CounterProviderProps {
+interface FormProviderProps {
   children: ReactNode;
 }
 
-const CounterProvider: React.FC<CounterProviderProps> = ({ children }) => {
+const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(counterReducer, initialState);
 
   return (
-    <CounterContext.Provider value={{ state, dispatch }}>
+    <FormContext.Provider value={{ state, dispatch }}>
       {children}
-    </CounterContext.Provider>
+    </FormContext.Provider>
   );
 };
 
-export default CounterProvider;
+export default FormProvider;

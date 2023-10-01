@@ -3,14 +3,14 @@ import { FormState } from './FormReducer';
 import { Action } from './FormReducer';
 import { initialState } from './FormReducer';
 
-interface CounterContextType {
+interface FormContextType {
   state: FormState;
   dispatch: Dispatch<Action>;
 }
 
-const CounterContext = createContext<CounterContextType>({
+const FormContext = createContext<FormContextType>({
     state: initialState,
     dispatch: () => undefined
 });
 
-export default CounterContext;
+export default FormContext;

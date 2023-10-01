@@ -1,6 +1,8 @@
 export interface FormState {
     step: number;
     formPayload: Associated;
+    personalDocuments: string[];
+    medicalDocuments: string[];
 }
 
 const initialState: FormState = {
@@ -21,7 +23,9 @@ const initialState: FormState = {
         neighborhood: "",
         city: "",
         state: "",
-    }
+    },
+    personalDocuments: [],
+    medicalDocuments: [],
 };
 
 export enum ActionType {
@@ -42,6 +46,12 @@ export enum ActionType {
     updateNeighborhood = "UPDATE_NEIGHBORHOOD",
     updateCity = "UPDATE_CITY",
     updateState = "UPDATE_STATE",
+
+    addPersonalDocument = "ADD_PERSONAL_DOCUMENT",
+    removePersonalDocument = "REMOVE_PERSONAL_DOCUMENT",
+
+    addMedicalDocument = "ADD_MEDICAL_DOCUMENT",
+    removeMedicalDocument = "REMOVE_MEDICAL_DOCUMENT",
 }
 
 export type Action = { type: ActionType, payload?: string };
@@ -139,6 +149,30 @@ const counterReducer = (state: FormState, action: Action): FormState => {
         case ActionType.updateState:
             if (action.payload !== undefined) {
                 return { ...state, formPayload: { ...state.formPayload, state: action.payload } };
+            } else {
+                return { ...state };
+            }
+        case ActionType.addPersonalDocument:
+            if (action.payload !== undefined) {
+                return { ...state, personalDocuments: [...state.personalDocuments, action.payload] };
+            } else {
+                return { ...state };
+            }
+        case ActionType.removePersonalDocument:
+            if (action.payload !== undefined) {
+                return { ...state, personalDocuments: [...state.personalDocuments].filter((doc) => doc !== action.payload) };
+            } else {
+                return { ...state };
+            }
+        case ActionType.addMedicalDocument:
+            if (action.payload !== undefined) {
+                return { ...state, medicalDocuments: [...state.medicalDocuments, action.payload] };
+            } else {
+                return { ...state };
+            }
+        case ActionType.removeMedicalDocument:
+            if (action.payload !== undefined) {
+                return { ...state, medicalDocuments: [...state.medicalDocuments].filter((doc) => doc !== action.payload) };
             } else {
                 return { ...state };
             }
