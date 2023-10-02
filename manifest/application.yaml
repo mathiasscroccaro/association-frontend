@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: association-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: association-frontend
+  template:
+    metadata:
+      labels:
+        app: association-frontend
+    spec:
+      containers:
+        - name: association-frontend
+          image: localhost:32000/association-frontend
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: association-frontend
+spec:
+  selector:
+    app: association-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: association-frontend-ingress
+spec:
+  rules:
+    - host: cadastro.maesconhasdobrasil.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: association-frontend
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: domain-rewrite
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: https://linktr.ee/maesconhadobrasil?utm_source=linktree_profile_share
+spec:
+  rules:
+    - host: maesconhasdobrasil.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: your-app-service
+                port:
+                  number: 80
