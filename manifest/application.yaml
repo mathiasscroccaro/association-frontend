@@ -56,7 +56,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: https://linktr.ee/maesconhadobrasil?utm_source=linktree_profile_share
 spec:
   rules:
-    - host: maesconhasdobrasil.com.br
+    - host: www.maesconhasdobrasil.com.br
       http:
         paths:
           - path: /
