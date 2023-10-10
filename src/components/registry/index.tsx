@@ -22,6 +22,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import HocUploadButton from './common/UploadButton'
 import { HocImageCard } from './common/ImagePreview'
 import LogoImage from './common/LogoImage'
+import ValidationSummaryTable from './ValidationTable'
 
 
 
@@ -229,19 +230,9 @@ function UploadMedicalDocuments() {
 function FormSummary() {
     const { state } = useContext(FormContext);
 
-    const attributes = Object.keys(state.formPayload);
-
-    const rows = attributes.map((key) => {
-        const attribute = (state.formPayload as any)[key];
-        return { attribute: (state.formPayload as any)[key] }
-
-    })
-
     return (
-        <Container component={Paper}>
-            {rows.map((row) => (
-                <Typography variant="body1" color="initial">{row.attribute}</Typography>
-            ))}
+        <Container >
+            <ValidationSummaryTable state={state}/>
         </Container>
     )
 }
