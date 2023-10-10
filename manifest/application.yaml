@@ -46,7 +46,7 @@ spec:
               service:
                 name: association-frontend
                 port:
-                  number: 80
+                  number: 8888
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -65,4 +65,4 @@ spec:
               service:
                 name: your-app-service
                 port:
-                  number: 80
+                  number: 8888
