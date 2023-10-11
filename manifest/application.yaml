@@ -26,6 +26,7 @@ metadata:
 spec:
   selector:
     app: association-frontend
+  type: NodePort
   ports:
     - protocol: TCP
       port: 80
