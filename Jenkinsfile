@@ -11,8 +11,7 @@ podTemplate(containers: [
     containerTemplate(
         name: 'kubectl', 
         image: 'd3fk/kubectl:latest',
-        entryPoint: 'sleep',
-        args: '30d'
+        entryPoint: 'sleep 30d'
     )
   ]) {
 
