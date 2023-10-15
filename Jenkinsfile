@@ -10,7 +10,7 @@ podTemplate(containers: [
     ),
     containerTemplate(
         name: 'kubectl', 
-        image: '192.168.15.71:32000/private-kubectl:latest',
+        image: 'bitnami/kubectl:latest',
         command: 'sleep',
         args: '30d'
     )
@@ -32,9 +32,14 @@ podTemplate(containers: [
         // }
         stage('Deploy') {
             git url: gitUrl, branch: gitBranch
+            // environment {
+            //     KUBECTL_CONFIG_FILE = credentials('kubectl_config_file')
+            // }
             container('kubectl') {
                 stage('Deploy to production') {    
-                    sh 'kubectl get pods -n devops-tools'
+                    sh 'mkdir -p ~/.kube'
+                    // sh 'cp ${KUBECTL_CONFIG_FILE} ~/.kube/config'
+                    // sh 'kubectl get pods -n devops-tools'
                 }
             }
         }
