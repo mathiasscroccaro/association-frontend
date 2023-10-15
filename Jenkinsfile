@@ -10,7 +10,7 @@ podTemplate(containers: [
     ),
     containerTemplate(
         name: 'kubectl', 
-        image: 'bitnami/kubectl:latest',
+        image: 'd3fk/kubectl:latest',
         command: 'sleep',
         args: '30d'
     )
