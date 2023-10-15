@@ -7,6 +7,12 @@ podTemplate(containers: [
         image: 'gcr.io/kaniko-project/executor:v1.9.0-debug',
         command: 'sleep',
         args: '30d'
+    ),
+    containerTemplate(
+        name: 'kubectl', 
+        image: 'bitnami/kubectl:latest',
+        command: 'sleep',
+        args: '30d'
     )
   ]) {
 
@@ -21,6 +27,19 @@ podTemplate(containers: [
                     /kaniko/executor --insecure --dockerfile `pwd`/Dockerfile --context `pwd` \
                     --destination "registry.container-registry:5000/association-frontend:latest"
                     '''
+                }
+            }
+        }
+        stage('Deploy') {
+            git url: gitUrl, branch: gitBranch
+            container('kubectl') {
+                environment {
+                    KUBECTL_CONFIG = credentials('kubectl_config')
+                }
+                stage('Deploy image to private k8s') {
+                    sh 'mkdir -p ~/.kube'
+                    sh 'echo $KUBECTL_CONFIG > ~/.kube/config'
+                    sh 'kubectl get pods -n devops-tools'
                 }
             }
         }
