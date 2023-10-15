@@ -35,8 +35,10 @@ podTemplate(containers: [
             container('kubectl') {
                 stage('Deploy to production') {
                     withCredentials([file(credentialsId: 'kubectl_config_file', variable: 'KUBECTL_CONFIG_FILE')]) {
+                        step {
                         sh 'cp ${KUBECTL_CONFIG_FILE} ~/.kube/config'
                         sh 'kubectl get pods -n devops-tools'
+                        }
                     }
                 }
             }
