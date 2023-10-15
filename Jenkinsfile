@@ -10,7 +10,7 @@ podTemplate(containers: [
     ),
     containerTemplate(
         name: 'kubectl', 
-        image: '192.168.15.71/private-kubectl:latest',
+        image: '192.168.15.71:32000/private-kubectl:latest',
         command: 'sleep',
         args: '30d'
     )
