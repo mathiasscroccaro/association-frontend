@@ -17,26 +17,26 @@ podTemplate(containers: [
   ]) {
 
     node(POD_LABEL) {
-        stage('Build') {
-            git url: gitUrl, branch: gitBranch
-            container('kaniko') {
-                stage('Build image and push to registry') {
-                    sh 'ls -la'
-                    sh 'pwd'
-                    sh '''
-                    /kaniko/executor --insecure --dockerfile `pwd`/Dockerfile --context `pwd` \
-                    --destination "registry.container-registry:5000/association-frontend:latest"
-                    '''
-                }
-            }
-        }
+        // stage('Build') {
+        //     git url: gitUrl, branch: gitBranch
+        //     container('kaniko') {
+        //         stage('Build image and push to registry') {
+        //             sh 'ls -la'
+        //             sh 'pwd'
+        //             sh '''
+        //             /kaniko/executor --insecure --dockerfile `pwd`/Dockerfile --context `pwd` \
+        //             --destination "registry.container-registry:5000/association-frontend:latest"
+        //             '''
+        //         }
+        //     }
+        // }
         stage('Deploy') {
             git url: gitUrl, branch: gitBranch
             container('kubectl') {
                 environment {
                     KUBECTL_CONFIG_FILE = credentials('kubectl_config_file')
                 }
-                stage('Deploy image to private k8s') {
+                step {
                     sh 'mkdir -p ~/.kube'
                     sh 'cp ${KUBECTL_CONFIG_FILE} ~/.kube/config'
                     sh 'kubectl get pods -n devops-tools'
