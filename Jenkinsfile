@@ -33,13 +33,15 @@ podTemplate(containers: [
         stage('Deploy') {
             git url: gitUrl, branch: gitBranch
             container('kubectl') {
-                environment {
-                    KUBECTL_CONFIG_FILE = credentials('kubectl_config_file')
-                }
                 stage('Deploy to production') {
+                    environment {
+                        KUBECTL_CONFIG_FILE = credentials('kubectl_config_file')
+                    }
+                    step {
                     sh 'mkdir -p ~/.kube'
                     sh 'cp ${KUBECTL_CONFIG_FILE} ~/.kube/config'
                     sh 'kubectl get pods -n devops-tools'
+                    }
                 }
             }
         }
