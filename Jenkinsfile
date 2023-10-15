@@ -34,11 +34,11 @@ podTemplate(containers: [
             git url: gitUrl, branch: gitBranch
             container('kubectl') {
                 environment {
-                    KUBECTL_CONFIG = credentials('kubectl_config')
+                    KUBECTL_CONFIG_FILE = credentials('kubectl_config_file')
                 }
                 stage('Deploy image to private k8s') {
                     sh 'mkdir -p ~/.kube'
-                    sh 'echo $KUBECTL_CONFIG > ~/.kube/config'
+                    sh 'cp ${KUBECTL_CONFIG_FILE} ~/.kube/config'
                     sh 'kubectl get pods -n devops-tools'
                 }
             }
