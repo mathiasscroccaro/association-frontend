@@ -36,7 +36,7 @@ podTemplate(containers: [
                 environment {
                     KUBECTL_CONFIG_FILE = credentials('kubectl_config_file')
                 }
-                step {
+                stage('Deploy to production') {
                     sh 'mkdir -p ~/.kube'
                     sh 'cp ${KUBECTL_CONFIG_FILE} ~/.kube/config'
                     sh 'kubectl get pods -n devops-tools'
